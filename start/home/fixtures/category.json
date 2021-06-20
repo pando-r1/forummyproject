@@ -1,0 +1,26 @@
+[
+    {
+        "model": "home.category",
+        "pk": 26,
+        "fields": {
+            "name": "Новости",
+            "description": "Делитесь интересной информацией со всеми!"
+        }
+    },
+    {
+        "model": "home.category",
+        "pk": 27,
+        "fields": {
+            "name": "Вопрос - ответ",
+            "description": ""
+        }
+    },
+    {
+        "model": "home.category",
+        "pk": 28,
+        "fields": {
+            "name": "Разное",
+            "description": ""
+        }
+    }
+]

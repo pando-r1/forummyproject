@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block home %}
+{% include 'home/base/header.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Blog post-->
+                    {% for post in posts %}
+                        <div class="card mb-4">
+                            {% if post.image %}
+                                <a href="#!"><img class="card-img-top" src="/media/{{ post.image }}" alt="..." /></a>
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="small text-muted"><small class="text-muted">{{ post.time_update }} | {{ post.category }}</small></div>
+                                <h2 class="card-title h4">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description | truncatewords:22 | linebreaks }}</p>
+                                <a class="btn btn-primary" href="{{ post.get_absolute_url }}">Read more →</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Pagination-->
+            
+            <nav aria-label="Pagination">
+                <hr class="my-0" />
+                <ul class="pagination justify-content-center my-4">
+                    <li class="page-item {% if not posts.has_previous %} disabled {% endif %}">
+                        <a class="page-link" href="{% if posts.has_previous %} {% url 'page' posts.previous_page_number %} {% else %} # {% endif %}" tabindex="-1" aria-disabled="true">Предыдущая</a>
+                    </li>
+                    {% for page in posts.paginator.page_range %}
+                        {% if posts.number == page %}
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="{% url 'page' page %}">{{ page }}</a></li>
+                        {% else %}
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'page' page %}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">15</a></li> -->
+
+                    <li class="page-item {% if not posts.has_next %} disabled {% endif %}">
+                        <a class="page-link" href="{% if posts.has_next %} {% url 'page' posts.next_page_number %} {% else %} # {% endif %}">Следующая</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-3">
+            <!-- Search widget-->
+            {% include 'home/base/search.html' %}
+            <!-- Categories widget-->
+            {% include 'home/base/categories.html' %}
+            <!-- Side widget-->
+            {% include 'home/base/side.html' %}
+        </div>
+    </div>
+</div>
+{% endblock home %}

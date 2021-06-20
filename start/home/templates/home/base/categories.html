@@ -1,0 +1,22 @@
+<div class="card mb-4">
+    {% if category_selected == 0 %}
+        <div class="card-header selected">Все категории</div>
+    {% else %}
+    <div class="card-header"><a href="{% url 'home' %}">Все категории</a></div>
+    {% endif %}
+    <div class="card-body">
+        <div class="row text-justify">
+            <div >
+                <ul class="list-unstyled m-2">
+                    {% for category in categories %}
+                        {% if category.pk == category_selected %}
+                            <li class="lead selected">{{ category.name }}</li>
+                        {% else %}
+                            <li class="lead"><a href="{% url 'category' category.id %}">{{ category.name }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 
