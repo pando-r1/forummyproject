@@ -1,5 +1,7 @@
 from django import contrib
 from django.shortcuts import render, HttpResponseRedirect
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import auth, messages
 
@@ -7,11 +9,11 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 
 # Create your views here.
-    # context = {
-    #     'title': "Welcome to Blog Home!",
-    #     'categories': Category.objects.all(),
-    #     'posts': Post.objects.all(),
-    # }
+# context = {
+#     'title': "Welcome to Blog Home!",
+#     # 'categories': Category.objects.all(),
+#     # 'posts': Post.objects.all(),
+# }
 
 
 def login(request):
@@ -59,3 +61,4 @@ def profile(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('home'))
+

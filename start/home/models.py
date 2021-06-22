@@ -32,14 +32,14 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    user = ForeignKey(User, on_delete=models.CASCADE, related_name='post_user')
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    image = models.ImageField(upload_to="post_images/%Y/%m/%d/", blank=True)
+    user = ForeignKey(User, on_delete=models.CASCADE, related_name='post_user', verbose_name='Пользователь')
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    description = models.TextField(verbose_name='Описание')
+    image = models.ImageField(upload_to="post_images/%Y/%m/%d/", blank=True, verbose_name='Изображение')
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
-    moderation = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='post_category')
+    moderation = models.BooleanField(default=True, verbose_name='Модерация')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='post_category',verbose_name='Категория')
 
     class Meta:
         db_table = "Post"

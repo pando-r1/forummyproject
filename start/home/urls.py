@@ -10,4 +10,6 @@ urlpatterns = [
     path("post/<int:post_id>/", home.show_post,  name="post"),
     path("page/<int:page>/", home.home,  name="page"),
     path("category/<int:category_id>/", home.home,  name="category"),
+    path("category/<int:category_id>/<int:page>/", home.category_filter,  name="caterory_filter"),
+    path("addpost/", home.addpost, name="addpost"),
 ]

@@ -1,8 +1,9 @@
 <div class="card mb-4">
+    <h1>{{ category_selected }}</h1>
     {% if category_selected == 0 %}
         <div class="card-header selected">Все категории</div>
     {% else %}
-    <div class="card-header"><a href="{% url 'home' %}">Все категории</a></div>
+        <div class="card-header"><a href="{% url 'home' %}">Все категории</a></div>
     {% endif %}
     <div class="card-body">
         <div class="row text-justify">

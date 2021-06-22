@@ -5,6 +5,7 @@ from django.urls.base import reverse
 from users.models import User
 
 
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "Введите имя пользователя"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': "Введите пароль"}))
@@ -51,3 +52,6 @@ class UserProfileForm(UserChangeForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-2 mb-2'
         # self.fields['image'].widget.attrs['class'] = 'custom-file-input'
+
+
+
