@@ -18,11 +18,13 @@ from users.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=65, unique=True)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=65, unique=True,  verbose_name='Название категории')
+    description = models.TextField(blank=True, verbose_name='Описание')
 
     class Meta:
         db_table = "Category"
+        verbose_name='Категорию'
+        verbose_name_plural='Категории'
 
     def __str__(self):
         return self.name
@@ -36,13 +38,16 @@ class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     image = models.ImageField(upload_to="post_images/%Y/%m/%d/", blank=True, verbose_name='Изображение')
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    time_update = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     moderation = models.BooleanField(default=True, verbose_name='Модерация')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='post_category',verbose_name='Категория')
 
     class Meta:
         db_table = "Post"
+        verbose_name='Пост'
+        verbose_name_plural='Посты'
+        ordering=['time_create', 'title']
 
 
     def __str__(self):
@@ -61,6 +66,8 @@ class Comment(models.Model):
 
     class Meta:
         db_table = "Comment"
+        verbose_name='Коментарий'
+        verbose_name_plural='Коментарии'
 
 
 class Like(models.Model):
@@ -69,6 +76,8 @@ class Like(models.Model):
 
     class Meta:
         db_table = "Like"
+        verbose_name='Лайк'
+        verbose_name_plural='Лайки'
 
 
 # class img(models.Model):
