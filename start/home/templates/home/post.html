@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'home/base/header.html' %}
+
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-9">
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row flex-nowrap">
+                <div class="col-lg-12">
+                    <!-- Blog post-->
+                        <div class="card mb-4">
+                            {{ post.category_id }}
+                            {% if post.image %}
+                                <a href="#!"><img class="card-img-top" src="/media/{{ post.image }}" alt="..." /></a>
+                            {% endif %}
+                            <div class="col-md-12">
+                                <p class="lead p-2 font-weight-normal">{{ post.description }}</p>
+                            <div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Search widget-->
+
+            {% include 'home/base/search.html' %}
+            <!-- Categories widget-->
+            {% include 'home/base/categories.html' %}
+            <!-- Side widget-->
+            {% include 'home/base/side.html' %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator
 from home.models import Category, Post
 from home.forms import AddPostForm
@@ -29,8 +29,21 @@ def home(request, category_id=None, page=1):
     return render(request, 'home/home.html', context)
 
 
-def show_post(request, post_id=None):
-    return HttpResponse(f'Отображение статьи с id = {post_id}')
+# def show_post(request, post_id=None):
+#     return HttpResponse(f'Отображение статьи с id = {post_id}')
+
+
+def show_post(request, post_id):
+    # post = get_object_or_404(Post, post_id)
+    post = Post.objects.get(pk=post_id)
+    # print(request,  post_id)
+    context = {
+        'post': post,
+        'title': post.title,
+        'categories': Category.objects.all(),
+        'category_selected': post.category_id,
+    }
+    return render(request,'home/post.html', context=context)
 
 
 def category_filter(request, page=None, category_id=None):
@@ -57,13 +70,13 @@ def addpost(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                form.save()
+            # try:
+            form.save()
                 # Post.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                print(form)
-                form.add_error(None, 'Ошибка добавления поста')
+            return redirect('home')
+            # except:
+            #     print(form)
+            #     form.add_error(None, 'Ошибка добавления поста')
     else:
         form = AddPostForm()
     return render(request, 'home/addpost.html', {'title': "Добавление поста", 'form': form})
